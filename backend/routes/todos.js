@@ -9,7 +9,7 @@ router.post("/", authMiddleware, async (req, res) => {
   const description = req.body.description;
   const userId = req.userId;
 
-  if (!title || !description) {
+  if (!description) {
     return res.status(400).json({
       message: "Title and description required",
     });

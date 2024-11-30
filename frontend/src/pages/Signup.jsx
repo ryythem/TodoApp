@@ -13,10 +13,10 @@ export const Signup = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   return (
-    <div className="bg-black h-screen flex justify-center ">
+    <div className="bg-gray-900 min-h-screen flex flex-col">
       <Navbar />
-      <div className="flex flex-col justify-center">
-        <div className="rounded-lg bg-gray-100 w-80 text-center p-2 h-max px-4">
+      <div className="flex-grow flex justify-center items-center">
+        <div className="rounded-lg bg-gray-800 w-80 text-center p-2 h-max px-4">
           <Heading label={"SignUp"} />
           <SubHeading label={"Enter your information to create an account"} />
           <InputBox
@@ -59,3 +59,4 @@ export const Signup = () => {
     </div>
   );
 };
+

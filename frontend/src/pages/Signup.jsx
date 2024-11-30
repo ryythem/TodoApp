@@ -17,7 +17,7 @@ export const Signup = () => {
       <Navbar />
       <div className="flex-grow flex justify-center items-center">
         <div className="rounded-lg bg-gray-800 w-80 text-center p-2 h-max px-4">
-          <Heading label={"SignUp"} />
+          <Heading label={"Sign Up"} />
           <SubHeading label={"Enter your information to create an account"} />
           <InputBox
             onChange={(e) => {

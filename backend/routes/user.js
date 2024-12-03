@@ -4,6 +4,7 @@ const zod = require("zod");
 const jwt = require("jsonwebtoken");
 const { User } = require("../db/db");
 const bcrypt = require("bcrypt");
+const { authMiddleware } = require("../middleware/middleware");
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const signupZod = zod.object({
   username: zod.string().email(),
-  firstName: zod.string(),
+  firstName: zod.string().optional(),
   password: zod.string(),
 });
 
@@ -23,7 +24,7 @@ router.post("/signup", async (req, res) => {
   const success = signupZod.safeParse({
     username,
     password,
-    firstName
+    firstName,
   });
 
   if (!success) {
@@ -65,7 +66,6 @@ router.post("/signup", async (req, res) => {
 router.post("/signin", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-
   const success = signupZod.safeParse({
     username,
     password,
@@ -100,6 +100,16 @@ router.post("/signin", async (req, res) => {
   res.json({
     message: "Sign in successful",
     token: token,
+  });
+});
+
+router.get("/user-firstName", authMiddleware, async (req, res) => {
+  const userId = req.userId;
+  const user = await User.findOne({
+    _id: userId,
+  });
+  res.json({
+    user: user.firstName,
   });
 });
 

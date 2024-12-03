@@ -11,16 +11,19 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const signupZod = zod.object({
   username: zod.string().email(),
+  firstName: zod.string(),
   password: zod.string(),
 });
 
 router.post("/signup", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
+  const firstName = req.body.firstName;
 
   const success = signupZod.safeParse({
     username,
     password,
+    firstName
   });
 
   if (!success) {
@@ -40,6 +43,7 @@ router.post("/signup", async (req, res) => {
 
   const user = await User.create({
     username,
+    firstName,
     password: hashedPassword,
   });
 
